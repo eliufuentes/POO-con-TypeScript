@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio 1: Cabecera de Página</title>
+    <style>
+        body {
+            background-color: #f0f4f8;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            background-color: #ffffff;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            width: 400px;
+            text-align: center;
+        }
+
+        h2 {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            margin-top: 20px;
+            padding: 10px 15px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #2980b9;
+        }
+
+        #page-title {
+            margin-top: 20px;
+            padding: 10px;
+            border-radius: 5px;
+            background-color: #ecf0f1;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Configurar Cabecera de Página</h2>
+        <label for="titleInput">Título de la página:</label>
+        <input type="text" id="titleInput" placeholder="Ingrese el título...">
+        
+        <label for="colorInput">Color del título:</label>
+        <input type="color" id="colorInput">
+        
+        <label for="fontInput">Fuente del título:</label>
+        <select id="fontInput">
+            <option value="Arial">Arial</option>
+            <option value="Verdana">Verdana</option>
+            <option value="Times New Roman">Times New Roman</option>
+        </select>
+        
+        <label for="alignInput">Alineación del título:</label>
+        <select id="alignInput">
+            <option value="left">Izquierda</option>
+            <option value="center">Centro</option>
+            <option value="right">Derecha</option>
+        </select>
+        
+        <button onclick="setHeader()">Configurar Cabecera</button>
+        <div id="page-title"></div>
+    </div>
+
+    <script>
+        class CabeceraPagina {
+            constructor(titulo = 'Título por Defecto', color = '#000000', fuente = 'Arial', alineacion = 'left') {
+                this.titulo = titulo;
+                this.color = color;
+                this.fuente = fuente;
+                this.alineacion = alineacion;
+            }
+
+            actualizarCabecera(titulo, color, fuente, alineacion) {
+                this.titulo = titulo;
+                this.color = color;
+                this.fuente = fuente;
+                this.alineacion = alineacion;
+            }
+
+            aplicarCabecera() {
+                const pageTitle = document.getElementById('page-title');
+                pageTitle.innerText = this.titulo;
+                pageTitle.style.color = this.color;
+                pageTitle.style.fontFamily = this.fuente;
+                pageTitle.style.textAlign = this.alineacion;
+            }
+
+            mostrarPropiedades() {
+                console.log(`Título: ${this.titulo}, Color: ${this.color}, Fuente: ${this.fuente}, Alineación: ${this.alineacion}`);
+            }
+        }
+
+        const cabecera = new CabeceraPagina();
+
+        function setHeader() {
+            const titulo = document.getElementById('titleInput').value || 'Título por Defecto';
+            const color = document.getElementById('colorInput').value;
+            const fuente = document.getElementById('fontInput').value;
+            const alineacion = document.getElementById('alignInput').value;
+
+            cabecera.actualizarCabecera(titulo, color, fuente, alineacion);
+            cabecera.aplicarCabecera();
+            cabecera.mostrarPropiedades();
+        }
+    </script>
+</body>
+</html>

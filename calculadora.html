@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio 2 - Calculadora</title>
+    <style>
+        body {
+            background-color: #f4f6f9;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            background-color: #ffffff;
+            padding: 30px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            width: 450px;
+            text-align: center;
+        }
+
+        h1 {
+            color: #2c3e50;
+            font-size: 24px;
+        }
+
+        label {
+            display: block;
+            margin-top: 10px;
+            font-weight: bold;
+            color: #34495e;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        button {
+            padding: 12px 20px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            width: 100%;
+            margin-bottom: 10px;
+        }
+
+        button:hover {
+            background-color: #2980b9;
+        }
+
+        .result {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #ecf0f1;
+            border-radius: 5px;
+            font-size: 16px;
+            text-align: left;
+        }
+    </style>
+    <script>
+        class Calculadora {
+            sumar(a, b) {
+                return a + b;
+            }
+
+            restar(a, b) {
+                return a - b;
+            }
+
+            multiplicar(a, b) {
+                return a * b;
+            }
+
+            dividir(a, b) {
+                if (b === 0) {
+                    return "No se puede dividir por cero.";
+                }
+                return a / b;
+            }
+
+            potencia(a, b) {
+                return Math.pow(a, b);
+            }
+
+            factorial(n) {
+                if (n < 0) return "No existe factorial de números negativos.";
+                if (n === 0) return 1;
+                return n * this.factorial(n - 1);
+            }
+        }
+
+        const calculadora = new Calculadora();
+
+        function calcular(operacion) {
+            const num1 = parseFloat(document.getElementById("numero1").value);
+            const num2 = parseFloat(document.getElementById("numero2").value);
+            let resultado;
+
+            switch (operacion) {
+                case 'sumar':
+                    resultado = calculadora.sumar(num1, num2);
+                    break;
+                case 'restar':
+                    resultado = calculadora.restar(num1, num2);
+                    break;
+                case 'multiplicar':
+                    resultado = calculadora.multiplicar(num1, num2);
+                    break;
+                case 'dividir':
+                    resultado = calculadora.dividir(num1, num2);
+                    break;
+                case 'potencia':
+                    resultado = calculadora.potencia(num1, num2);
+                    break;
+                case 'factorial':
+                    const num = parseInt(document.getElementById("numeroFactorial").value);
+                    resultado = calculadora.factorial(num);
+                    break;
+            }
+
+            document.getElementById("resultado").innerText = "Resultado: " + resultado;
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>Calculadora</h1>
+        <label for="numero1">Número 1:</label>
+        <input type="number" id="numero1" placeholder="Ingrese el primer número">
+        
+        <label for="numero2">Número 2:</label>
+        <input type="number" id="numero2" placeholder="Ingrese el segundo número">
+        
+        <button onclick="calcular('sumar')">Sumar</button>
+        <button onclick="calcular('restar')">Restar</button>
+        <button onclick="calcular('multiplicar')">Multiplicar</button>
+        <button onclick="calcular('dividir')">Dividir</button>
+        <button onclick="calcular('potencia')">Potencia</button>
+
+        <label for="numeroFactorial">Número para Factorial:</label>
+        <input type="number" id="numeroFactorial" placeholder="Número para calcular factorial">
+        <button onclick="calcular('factorial')">Factorial</button>
+
+        <div class="result" id="resultado">Resultado:</div>
+    </div>
+</body>
+</html>

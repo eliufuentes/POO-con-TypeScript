@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio 4 - Cuenta</title>
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            background-color: #ffffff;
+            padding: 30px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            width: 450px;
+        }
+
+        h1, h2 {
+            color: #2c3e50;
+            text-align: center;
+        }
+
+        label {
+            display: block;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            margin-top: 10px;
+            padding: 10px 20px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            width: 100%;
+        }
+
+        button:hover {
+            background-color: #2980b9;
+        }
+
+        .result {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #ecf0f1;
+            border-radius: 5px;
+            text-align: left;
+        }
+    </style>
+    <script>
+        class Cuenta {
+            constructor(nombre, cantidad, tipoCuenta, numeroCuenta) {
+                this.nombre = nombre;
+                this.cantidad = cantidad;
+                this.tipoCuenta = tipoCuenta;
+                this.numeroCuenta = numeroCuenta;
+            }
+
+            depositar(monto) {
+                if (monto < 5) {
+                    alert("El valor a depositar debe ser mayor a $5.00.");
+                } else {
+                    this.cantidad += monto;
+                    alert(`Se ha depositado correctamente. Cantidad actual: $${this.cantidad}`);
+                }
+            }
+
+            retirar(valor) {
+                if (valor > this.cantidad) {
+                    alert("No hay suficiente dinero en la cuenta.");
+                } else if (valor < 5) {
+                    alert("El monto a retirar debe ser mayor a $5.00.");
+                } else {
+                    this.cantidad -= valor;
+                    alert(`Ha retirado: $${valor}. Cantidad restante: $${this.cantidad}`);
+                }
+            }
+
+            mostrarDatos() {
+                alert(`Nombre: ${this.nombre}\nTipo de Cuenta: ${this.tipoCuenta}\nNúmero de Cuenta: ${this.numeroCuenta}`);
+            }
+        }
+
+        let cuenta;
+
+        function crearCuenta() {
+            const nombre = document.getElementById("nombre").value;
+            const cantidad = parseFloat(document.getElementById("cantidad").value);
+            const tipoCuenta = document.getElementById("tipoCuenta").value;
+            const numeroCuenta = document.getElementById("numeroCuenta").value;
+
+            cuenta = new Cuenta(nombre, cantidad, tipoCuenta, numeroCuenta);
+            cuenta.mostrarDatos();
+            document.getElementById("result").innerHTML = `
+                <p><strong>Cuenta creada:</strong></p>
+                <p><strong>Nombre:</strong> ${cuenta.nombre}</p>
+                <p><strong>Tipo de cuenta:</strong> ${cuenta.tipoCuenta}</p>
+                <p><strong>Número de cuenta:</strong> ${cuenta.numeroCuenta}</p>
+                <p><strong>Cantidad inicial:</strong> $${cuenta.cantidad}</p>
+            `;
+        }
+
+        function realizarDeposito() {
+            const monto = parseFloat(document.getElementById("montoDeposito").value);
+            cuenta.depositar(monto);
+            document.getElementById("result").innerHTML += `
+                <p><strong>Depósito realizado:</strong> $${monto}</p>
+                <p><strong>Nuevo saldo:</strong> $${cuenta.cantidad}</p>
+            `;
+        }
+
+        function realizarRetiro() {
+            const valor = parseFloat(document.getElementById("montoRetiro").value);
+            cuenta.retirar(valor);
+            document.getElementById("result").innerHTML += `
+                <p><strong>Retiro realizado:</strong> $${valor}</p>
+                <p><strong>Nuevo saldo:</strong> $${cuenta.cantidad}</p>
+            `;
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>Cuenta Bancaria</h1>
+        
+        <h2>Crear Cuenta</h2>
+        <label for="nombre">Nombre:</label>
+        <input type="text" id="nombre" placeholder="Ingrese el nombre de la cuenta">
+        
+        <label for="cantidad">Cantidad Inicial:</label>
+        <input type="number" id="cantidad" placeholder="Ingrese la cantidad inicial">
+        
+        <label for="tipoCuenta">Tipo de Cuenta:</label>
+        <select id="tipoCuenta">
+            <option value="Cuenta de Ahorro">Cuenta de Ahorro</option>
+            <option value="Cuenta Corriente">Cuenta Corriente</option>
+        </select>
+        
+        <label for="numeroCuenta">Número de Cuenta:</label>
+        <input type="text" id="numeroCuenta" placeholder="Ingrese el número de cuenta">
+        
+        <button onclick="crearCuenta()">Crear Cuenta</button>
+
+        <h2>Operaciones</h2>
+        <label for="montoDeposito">Monto a Depositar:</label>
+        <input type="number" id="montoDeposito" placeholder="Ingrese monto a depositar">
+        <button onclick="realizarDeposito()">Depositar</button>
+
+        <label for="montoRetiro">Monto a Retirar:</label>
+        <input type="number" id="montoRetiro" placeholder="Ingrese monto a retirar">
+        <button onclick="realizarRetiro()">Retirar</button>
+
+        <div class="result" id="result"></div>
+    </div>
+</body>
+</html>

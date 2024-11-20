@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio 3 - Canción</title>
+    <style>
+        body {
+            background-color: #f4f6f9;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            background-color: #ffffff;
+            padding: 30px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            width: 450px;
+            text-align: center;
+        }
+
+        h1 {
+            color: #2c3e50;
+            font-size: 24px;
+        }
+
+        label {
+            display: block;
+            margin-top: 10px;
+            font-weight: bold;
+            color: #34495e;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        button {
+            padding: 12px 20px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            width: 100%;
+        }
+
+        button:hover {
+            background-color: #2980b9;
+        }
+
+        .result {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #ecf0f1;
+            border-radius: 5px;
+            font-size: 16px;
+            text-align: left;
+        }
+    </style>
+    <script>
+        class Cancion {
+            constructor(titulo, genero) {
+                this.titulo = titulo;
+                this.genero = genero;
+                this._autor = "";
+            }
+
+            set autor(autor) {
+                this._autor = autor;
+            }
+
+            get autor() {
+                return this._autor;
+            }
+
+            mostrarDatos() {
+                document.getElementById("result").innerHTML = `
+                    <p><strong>Título:</strong> ${this.titulo}</p>
+                    <p><strong>Género:</strong> ${this.genero}</p>
+                    <p><strong>Autor:</strong> ${this.autor}</p>
+                `;
+            }
+        }
+
+        function crearCancion() {
+            const titulo = document.getElementById("titulo").value;
+            const genero = document.getElementById("genero").value;
+            const autor = document.getElementById("autor").value;
+
+            const cancion = new Cancion(titulo, genero);
+            cancion.autor = autor;
+            cancion.mostrarDatos();
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>Crear Canción</h1>
+        <label for="titulo">Título:</label>
+        <input type="text" id="titulo" placeholder="Ingrese el título de la canción">
+        
+        <label for="genero">Género:</label>
+        <input type="text" id="genero" placeholder="Ingrese el género de la canción">
+        
+        <label for="autor">Autor:</label>
+        <input type="text" id="autor" placeholder="Ingrese el autor de la canción">
+        
+        <button onclick="crearCancion()">Mostrar Datos de la Canción</button>
+
+        <div class="result" id="result"></div>
+    </div>
+</body>
+</html>
